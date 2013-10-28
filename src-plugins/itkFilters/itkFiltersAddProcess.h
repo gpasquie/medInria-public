@@ -31,6 +31,8 @@ public:
     virtual ~itkFiltersAddProcess(void);
 
     static bool registered ( void );
+
+    QWidget* widget();
     
 public slots:
 

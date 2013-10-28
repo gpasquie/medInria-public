@@ -96,7 +96,7 @@ itkProcessRegistrationDiffeomorphicDemons::~itkProcessRegistrationDiffeomorphicD
 bool itkProcessRegistrationDiffeomorphicDemons::registered()
 {
     return dtkAbstractProcessFactory::instance()->registerProcessType("itkProcessRegistrationDiffeomorphicDemons",
-              createitkProcessRegistrationDiffeomorphicDemons);
+                                                                      createitkProcessRegistrationDiffeomorphicDemons, "dtkAbstractProcess");
 }
 
 QString itkProcessRegistrationDiffeomorphicDemons::description() const

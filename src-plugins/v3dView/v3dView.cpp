@@ -708,7 +708,7 @@ v3dView::~v3dView()
 
 bool v3dView::registered()
 {
-    return dtkAbstractViewFactory::instance()->registerViewType ( v3dView::s_identifier(), createV3dView );
+    return dtkAbstractViewFactory::instance()->registerViewType ( v3dView::s_identifier(), createV3dView, "dtkAbstractView" );
 }
 
 QString v3dView::description() const
@@ -814,6 +814,12 @@ void v3dView::setData ( dtkAbstractData *data )
 {
     if(!data)
         return;
+    else
+    {
+        setData(data, 0);
+        qDebug() << data;
+        this->update();
+    }
 
     /*
     if(medAbstractView::isInList(data)) // called in setData(data, layer) !

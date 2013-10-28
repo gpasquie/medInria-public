@@ -20,6 +20,7 @@
 #include <medMetaDataKeys.h>
 
 #include "itkFiltersAddProcess_p.h"
+#include "itkFiltersToolBox.h"
 
 //-------------------------------------------------------------------------------------------
 
@@ -32,6 +33,9 @@ itkFiltersAddProcess::itkFiltersAddProcess(itkFiltersAddProcess *parent)
     d->output = NULL;
     
     d->description = tr("ITK add constant filter");
+
+
+    d->widget = new QPushButton("YEAHH");
 }
 
 
@@ -50,7 +54,7 @@ itkFiltersAddProcess::~itkFiltersAddProcess( void )
 
 bool itkFiltersAddProcess::registered( void )
 {
-    return dtkAbstractProcessFactory::instance()->registerProcessType("itkAddProcess", createitkFiltersAddProcess);
+    return dtkAbstractProcessFactory::instance()->registerProcessType("itkAddProcess", createitkFiltersAddProcess, "dtkAbstractProcess");
 }
 
 //-------------------------------------------------------------------------------------------
@@ -129,6 +133,12 @@ int itkFiltersAddProcess::update ( void )
     return EXIT_SUCCESS;
 }
 
+
+QWidget* itkFiltersAddProcess::widget()
+{
+    return new itkFiltersToolBox();
+
+}
 
 // /////////////////////////////////////////////////////////////////
 // Type instanciation

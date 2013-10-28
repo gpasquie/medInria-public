@@ -229,6 +229,7 @@ void medDatabaseNavigatorItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     QMimeData *data = d->index.createMimeData();
     data->setImageData(this->pixmap());
+    data->setUrls(QList<QUrl>() << QUrl(QString("node:string")));
 
 	QDrag *drag = new QDrag(this->scene()->views().first());
     drag->setMimeData(data);

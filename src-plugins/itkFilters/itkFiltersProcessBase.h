@@ -15,12 +15,13 @@
 
 #include <dtkCore/dtkAbstractProcess.h>
 #include <dtkCore/dtkAbstractData.h>
+#include <medAbstractProcess.h>
 
 #include "itkFiltersPluginExport.h"
 
 class itkFiltersProcessBasePrivate;
 
-class ITKFILTERSPLUGIN_EXPORT itkFiltersProcessBase : public dtkAbstractProcess
+class ITKFILTERSPLUGIN_EXPORT itkFiltersProcessBase : public medAbstractProcess
 {
     Q_OBJECT
 public:
