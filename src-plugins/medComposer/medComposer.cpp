@@ -146,19 +146,16 @@ medComposerWorkspace::medComposerWorkspace(QWidget *parent) : medWorkspace(paren
 {
 
     d->mainWidget = new QWidget;
-    //d->mainWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     d->composer = new dtkComposer;
     d->composer->setFactory(new medComposerFactory);
     d->composer->view()->setBackgroundBrush(QColor("#ffffff"));
     d->composer->view()->setCacheMode(QGraphicsView::CacheBackground);
-    //d->composer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     d->editor = new medComposerSceneNodeEditor(d->mainWidget);
     d->editor->setScene(d->composer->scene());
     d->editor->setStack(d->composer->stack());
     d->editor->setGraph(d->composer->graph());
-    //d->editor->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     d->model = new dtkComposerSceneModel(this);
     d->model->setScene(d->composer->scene());
@@ -166,15 +163,12 @@ medComposerWorkspace::medComposerWorkspace(QWidget *parent) : medWorkspace(paren
     d->scene = new dtkComposerSceneView(d->mainWidget);
     d->scene->setScene(d->composer->scene());
     d->scene->setModel(d->model);
-   // d->scene->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     d->stack = new dtkComposerStackView(d->mainWidget);
     d->stack->setStack(d->composer->stack());
-    //d->stack->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     d->nodes = new dtkComposerFactoryView(d->mainWidget);
     d->nodes->setFactory(d->composer->factory());
-    //d->nodes->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     d->closing = false;
 
@@ -275,12 +269,10 @@ medComposerWorkspace::medComposerWorkspace(QWidget *parent) : medWorkspace(paren
     // -- Layout
 
     dtkSplitter *left = new dtkSplitter(d->mainWidget);
-    //left->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     left->setOrientation(Qt::Vertical);
     left->addWidget(d->nodes);
 
     dtkSplitter *right = new dtkSplitter(d->mainWidget);
-    //    right->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     right->setOrientation(Qt::Vertical);
     right->addWidget(d->scene);
     right->addWidget(d->editor);
@@ -289,7 +281,6 @@ medComposerWorkspace::medComposerWorkspace(QWidget *parent) : medWorkspace(paren
 
 
     QWidget *middle = new QWidget(d->mainWidget);
-    //    middle->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     QVBoxLayout *m_layout = new QVBoxLayout(middle);
     m_layout->setContentsMargins(0, 0, 0, 0);
@@ -298,7 +289,6 @@ medComposerWorkspace::medComposerWorkspace(QWidget *parent) : medWorkspace(paren
     m_layout->addWidget(new dtkViewManager(d->mainWidget));
 
     d->inner = new dtkSplitter(d->mainWidget);
-     //       d->inner->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     d->inner->setOrientation(Qt::Horizontal);
     d->inner->addWidget(left);
     d->inner->addWidget(middle);
@@ -328,12 +318,9 @@ medComposerWorkspace::~medComposerWorkspace()
 
 bool medComposerWorkspace::registered()
 {
-    //return dtkAbstractDataFactory::instance()->registerDataType("medComposer", createMedComposer);
     medWorkspaceFactory * viewerWSpaceFactory = medWorkspaceFactory::instance();
     viewerWSpaceFactory->registerWorkspace
-            <medComposerWorkspace>("Composer",
-                                              tr("Composer"),
-                                              tr("Composer workspace"));
+            <medComposerWorkspace>("Composer", tr("Composer"), tr("Composer workspace"));
 }
 
 QString medComposerWorkspace::description() const
@@ -344,43 +331,19 @@ QString medComposerWorkspace::description() const
 
 void medComposerWorkspace::setupViewContainerStack()
 {
-    if (!stackedViewContainers()->count())
-    {
-        const QString description = this->description();
-        //QString createdTab = addDefaultTypeContainer(description);
-        //this->connectToolboxesToCurrentContainer(createdTab);
-    }
     this->stackedViewContainers()->unlockTabs();
 
+    this->setToolBoxesVisibility(false);
 
-   qDebug() << this->stackedViewContainers()->parentWidget()->parentWidget()->width();
-   qDebug() << this->stackedViewContainers()->parentWidget()->parentWidget()->height();
+    int w = this->stackedViewContainers()->parentWidget()->parentWidget()->width();
+    int h = this->stackedViewContainers()->parentWidget()->parentWidget()->height();
 
-   int w = this->stackedViewContainers()->parentWidget()->parentWidget()->width();
-   int h = this->stackedViewContainers()->parentWidget()->parentWidget()->height();
-   /* d->inner->setSizes(QList<int>()
-                        << 200
-                        << this->stackedViewContainers()->current()->size().width()-200-200
-                        << 200);*/
-
-  /*  this->stackedViewContainers()->current()->setFixedHeight(1000);
-    this->stackedViewContainers()->current()->setFixedWidth(1400);*/
-
-    //d->mainWidget->setFixedHeight(1000);
-    //d->mainWidget->setFixedWidth(1600);
-    d->mainWidget->setMinimumSize(1600,h);
+    //TODO: find a better way to manage size
+    d->mainWidget->setMinimumSize(w-200,h-100);
     d->mainWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     d->mainWidget->setParent( this->stackedViewContainers() );
     this->stackedViewContainers()->setCurrentWidget(d->mainWidget);
-
-    /*this->stackedViewContainers()->blockSignals(true);
-    this->stackedViewContainers()->addTab(d->mainWidget, "allez");
-        this->stackedViewContainers()->blockSignals(false);*/
-
-    d->mainWidget->update();
-    d->mainWidget->repaint();
-
 }
 
 bool medComposerWorkspace::compositionOpen(void)

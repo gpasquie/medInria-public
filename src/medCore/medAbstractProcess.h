@@ -26,8 +26,7 @@ public:
     medAbstractProcess(      medAbstractProcess *parent = 0);
     medAbstractProcess(const medAbstractProcess& other);
 
-    //virtual void createWidget(){}
-    virtual QWidget * widget(){}
+    virtual QWidget * widget();
 
 
 private:

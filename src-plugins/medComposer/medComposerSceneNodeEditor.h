@@ -23,7 +23,7 @@ public:
     medComposerSceneNodeEditor(QWidget *parent);
 
 public slots:
-    void test(const QString&);
+    void showProcessWidget(const QString&);
 
 };
 

@@ -75,6 +75,8 @@ void medComposerNodeFilteringProcess::run(void)
         d->process->setInput(data);
     }
 
+    // TODO: cast process to medAbstractProcess
+    // and set parameters retrieved from toolbox
     d->index = d->process->run();
 
     if (d->process->data(0))

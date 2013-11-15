@@ -30,10 +30,6 @@ public:
 
 void medComposerFactoryPrivate::initialize(void)
 {
-  /*  if(!dtkAbstractViewFactory::instance()->registerViewType("medView", createmedView))
-        dtkWarn() << "Unable to register medView type";
-
-    qRegisterMetaType<medView>("medView");*/
 }
 
 // /////////////////////////////////////////////////////////////////

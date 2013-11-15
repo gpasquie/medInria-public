@@ -8,11 +8,11 @@
 
 medComposerSceneNodeEditor::medComposerSceneNodeEditor(QWidget *parent) : dtkComposerSceneNodeEditor(parent)
 {
-    connect(d->select_implementation, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(test(const QString&)));
+    connect(d->select_implementation, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(showProcessWidget(const QString&)));
 }
 
-void medComposerSceneNodeEditor::test(const QString&)
-{
+void medComposerSceneNodeEditor::showProcessWidget(const QString&)
+{           
     if (dtkComposerNodeLeafProcess *process_node = dynamic_cast<dtkComposerNodeLeafProcess *>(d->node->wrapee()))
     {
         if( medAbstractProcess* process = dynamic_cast<medAbstractProcess*>(process_node->process()) )

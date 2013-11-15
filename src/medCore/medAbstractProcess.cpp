@@ -16,18 +16,12 @@ medAbstractProcess::medAbstractProcess(const medAbstractProcess& other) : dtkAbs
     d->widget = NULL;
 }
 
-/*
+
 QWidget * medAbstractProcess::widget()
 {
     DTK_D(medAbstractProcess);
 
     return d->widget;
-}*/
+}
 
-/*
-void medAbstractProcess::setWidget(QWidget *widget)
-{
-    DTK_D(medAbstractProcess);
 
-    d->widget = widget;
-}*/
