@@ -54,6 +54,9 @@ public:
     */
     QVariant value ( const QString & section, const QString & key, const QVariant & defaultValue = QVariant() );
 
+
+    QStringList keys (const QString & section);
+
 signals:
     void settingsChanged( const QString & );
 

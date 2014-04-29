@@ -98,6 +98,8 @@ private slots:
 
     void adjustContainersSize();
 
+    void showLinkManager();
+
 protected:
     void closeEvent(QCloseEvent *event);
     void mousePressEvent(QMouseEvent * event);

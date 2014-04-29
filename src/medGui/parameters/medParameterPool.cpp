@@ -63,6 +63,7 @@ void medParameterPool::append(medAbstractParameter *parameter)
 {
     if(medAbstractGroupParameter* group = dynamic_cast<medAbstractGroupParameter*>(parameter))
     {
+        // append each parameter of the group parameter
         foreach(medAbstractParameter* param, group->parametersCandidateToPool())
         {
             if(!d->pool.values(param->name()).contains(param))
@@ -72,14 +73,14 @@ void medParameterPool::append(medAbstractParameter *parameter)
             }
         }
     }
-    else
+
+    // in case of a group parameter, also append the group parameter itself
+    if(!d->pool.values(parameter->name()).contains(parameter))
     {
-        if(!d->pool.values(parameter->name()).contains(parameter))
-        {
-            d->pool.insert(parameter->name(), parameter);
-            connectParam(parameter);
-        }
+        d->pool.insert(parameter->name(), parameter);
+        connectParam(parameter);
     }
+
 }
 
 void medParameterPool::append(QList<medAbstractParameter *> parameters)
@@ -98,7 +99,6 @@ void medParameterPool::remove(medAbstractParameter* parameter)
         {
             remove(paramInGroup);
         }
-        return;
     }
 
     disconnectParam(parameter);

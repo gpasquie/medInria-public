@@ -79,5 +79,12 @@ void medSettingsManager::setValue( const QString & section, const QString & key,
     emit settingsChanged(section);
 }
 
+QStringList medSettingsManager::keys (const QString & section)
+{
+   d->settings.beginGroup(section);
+   QStringList values = d->settings.allKeys();
+   d->settings.endGroup();
+   return values;
+}
 
 medSettingsManager *medSettingsManager::s_instance = NULL;

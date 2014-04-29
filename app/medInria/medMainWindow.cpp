@@ -30,6 +30,7 @@
 #include <medJobManager.h>
 #include <medAbstractWorkspace.h>
 #include <medTabbedViewContainers.h>
+#include <medParameterPoolEditor.h>
 
 #ifdef Q_OS_MAC
 # define CONTROL_KEY "Meta"
@@ -77,6 +78,7 @@ public:
     QToolButton*                quitButton;
     QToolButton*              fullscreenButton;
     QToolButton*              adjustSizeButton;
+    QToolButton*              linkButton;
     QList<QString>            importUuids;
     medQuickAccessMenu * quickAccessWidget;
     bool controlPressed;
@@ -213,9 +215,17 @@ medMainWindow::medMainWindow ( QWidget *parent ) : QMainWindow ( parent ), d ( n
     d->adjustSizeButton = new QToolButton(this);
     d->adjustSizeButton->setIcon(adjustIcon);
     d->adjustSizeButton->setObjectName("adjustSizeButton");
-    d->adjustSizeButton->setShortcut(Qt::AltModifier + Qt::Key_S);
     d->adjustSizeButton->setToolTip(tr("Adjust containers size"));
     QObject::connect(d->adjustSizeButton, SIGNAL(clicked()), this, SLOT(adjustContainersSize()));
+
+
+    QIcon linkIcon;
+    linkIcon.addPixmap(QPixmap(":icons/link.svg"),QIcon::Normal);
+    d->linkButton = new QToolButton(this);
+    d->linkButton->setIcon(linkIcon);
+    d->linkButton->setObjectName("linkIcon");
+    d->linkButton->setToolTip(tr("Link manager"));
+    QObject::connect(d->linkButton, SIGNAL(clicked()), this, SLOT(showLinkManager()));
 
 
     //  QuitMessage and rightEndButtons will switch hidden and shown statuses.
@@ -223,6 +233,7 @@ medMainWindow::medMainWindow ( QWidget *parent ) : QMainWindow ( parent ), d ( n
     QHBoxLayout * rightEndButtonsLayout = new QHBoxLayout(d->rightEndButtons);
     rightEndButtonsLayout->setContentsMargins ( 5, 0, 5, 0 );
     rightEndButtonsLayout->setSpacing ( 5 );
+    rightEndButtonsLayout->addWidget( d->linkButton );
     rightEndButtonsLayout->addWidget( d->adjustSizeButton );
     rightEndButtonsLayout->addWidget( d->screenshotButton );
     rightEndButtonsLayout->addWidget( d->fullscreenButton );
@@ -677,4 +688,11 @@ bool medMainWindow::event(QEvent * e)
 void medMainWindow::adjustContainersSize()
 {
     d->workspaceArea->currentWorkspace()->stackedViewContainers()->adjustContainersSize();
+}
+
+void medMainWindow::showLinkManager()
+{
+    medParameterPoolEditor linkEditor(this);
+    linkEditor.setViews(d->workspaceArea->currentWorkspace()->stackedViewContainers()->viewsInTab());
+    linkEditor.exec();
 }
