@@ -20,6 +20,7 @@ class medAbstractFilteringProcess : public medAbstractProcess
 public:
     medAbstractFilteringProcess(medAbstractProcess *parent = NULL);
 
+
 public:
     virtual bool isInteractive();
 
