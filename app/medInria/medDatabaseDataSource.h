@@ -31,7 +31,7 @@ public:
     ~medDatabaseDataSource();
 
     QWidget* mainViewWidget();
-    QWidget* compactViewWidget();
+    QWidget* createCompactViewWidget();
 
     QWidget* sourceSelectorWidget();
 
